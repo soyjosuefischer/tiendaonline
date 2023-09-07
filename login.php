@@ -1,22 +1,25 @@
 <?php
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "tiendaonline";
+session_start();
 
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+if (isset($_SESSION['username'])) {
+   header('Location: home.php');
+   exit();
 }
-
-$username = "";
-$password = "";
-$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+
+    $servername = "localhost";
+    $dbusername = "root";
+    $dbpassword = "";
+    $dbname = "tiendaonline";
+
+    $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
 
     $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 
@@ -24,14 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $message = "Autenticación exitosa.";
+        
+        $_SESSION['username'] = $username;
+
         header('Location: home.php');
         exit;
     } else {
-        $message = "Error en la autenticación.";
+        $message = "Nombre de usuario o contraseña incorrecto.";
     }
-}
 
-$conn->close();
+    $conn->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,89 +47,10 @@ $conn->close();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión | Tienda Online</title>
   
+  <link rel="stylesheet" href="css/login-styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: "Poppins", sans-serif;
- }
-  
- .login-container {
-    max-width: 400px;
-    margin: 30px;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- }
-
- .login-container p {
-    text-align: center;
- }
-  
- h2 {
-    font-size: 24px;
-    text-align: center;
- }
-
- .message {
-   color: red;
- }
-  
- .login-form {
-    margin-top: 50px;
- }
-  
- label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
- }
-  
- input[type="text"],
- input[type="password"] {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
- }
-  
- .btn {
-    display: block;
-    width: 100%;
-    padding: 12px 24px;
-    background-color: #000000;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    cursor: pointer;
- }
-  
- .btn-login {
-    margin-top: 20px;
- }
-  
- .forgot-password-link {
-    display: block;
-    text-align: center;
-    color: #000000;
-    text-decoration: underline;
-    margin-top: 10px;
- }
-  </style>
 </head>
 
 <body>
@@ -138,7 +65,7 @@ $conn->close();
     ?>
 
     <form action="login.php" method="post" id="login-form" class="login-form">
-      <label for="email">Nombre de usuario</label>
+      <label for="text">Nombre de usuario</label>
       <input type="text" id="username" name="username" required>
       
       <label for="password">Contraseña</label>

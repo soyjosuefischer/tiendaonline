@@ -1,4 +1,5 @@
 <?php
+
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "";
@@ -18,7 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "INSERT INTO users (fullname, email, username, password) VALUES ('$fullname', '$email', '$username', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-        $message = "Registro exitoso.";
+        $message = "Te has registrado exitosamente.";
+        header('Location: login.php');
+        exit;
+        
     } else {
         $message = "Error en el registro: " . $conn->error;
     }
@@ -34,101 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crear Cuenta | Tienda Online</title>
   
+  <link rel="stylesheet" href="css/signup-styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: "Poppins", sans-serif;
-  }
-
-  a {
-    color: #000000;
-    text-decoration: underline;
-  }
-  
-  .signup-container {
-    max-width: 400px;
-    margin: 30px;
-    padding: 10px 40px 40px 40px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .signup-container p {
-    text-align: center;
-  }
-  
-  h2 {
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .message {
-   color: red;
- }
-  
-  .signup-form {
-    margin-top: 50px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-  }
-  
-  .btn {
-    display: block;
-    width: 100%;
-    padding: 12px 24px;
-    background-color: #000000;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  .btn-signup {
-    margin-top: 20px;
-  }
-  
-  .terms-conditions {
-    display: flex;
-    align-items: center;
-  }
-
-  .terms-conditions label {
-    font-weight: 400;
-  }
-  
-  .terms-conditions input[type="checkbox"] {
-    margin-right: 10px;
-    margin-bottom: 12px;
-  }  
-  </style>
 </head>
+
 <body>
   <div class="signup-container">
     <h2>Crear cuenta</h2>
@@ -159,6 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <button type="submit" class="btn btn-signup">Crear cuenta</button>
+      <br>
+      <p><b>¿Ya tienes una cuenta?</b></p><a href="login.php" class="login-link">Inicia sesión</a>
     </form>
   </div>
 </body>
