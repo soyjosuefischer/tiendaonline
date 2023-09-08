@@ -9,7 +9,7 @@ session_start();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Top niña rosado | Tienda Online</title>
+  <title>Top de niña rosado | Tienda Online</title>
   
   <link rel="stylesheet" href="products-styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -178,7 +178,7 @@ session_start();
                     </div>
 
                     <a href="#">
-                      <h3 class="showcase-title">Top niña rosado</h3>
+                      <h3 class="showcase-title">Top de niña rosado</h3>
                     </a>
 
                     <p class="showcase-desc">

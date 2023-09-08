@@ -976,7 +976,7 @@ if (!isset($_SESSION['username'])) {
                   
                     <div class="showcase-content">
                       <a href="products/girl-pink-top.php">
-                        <h4 class="showcase-title">Top niña rosado</h4>
+                        <h4 class="showcase-title">Top de niña rosado</h4>
                       </a>
                   
                       <a href="#" class="showcase-category">Ropa</a>
